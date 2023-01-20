@@ -1,6 +1,7 @@
 package com.jvaras.shopping.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.jvaras.shopping.model.Customer;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.Data;
@@ -25,6 +26,9 @@ public class Invoice {
     @Column(name = "customer_id")
     private Long customerId;
 
+    @Transient
+    private Customer customer;
+
     @Column(name = "create_at")
     @Temporal(TemporalType.DATE)
     private Date createAt;
@@ -34,6 +38,8 @@ public class Invoice {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "invoice_id")
     private List<InvoiceItem> items;
+
+
 
     private String state;
 
